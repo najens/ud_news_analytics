@@ -2,6 +2,7 @@ import psycopg2
 
 DBNAME = "news"
 
+
 def get_articles():
     """Return the 3 most popular articles of all time"""
     db = psycopg2.connect(database=DBNAME)
@@ -22,6 +23,7 @@ def get_articles():
     )
     return c.fetchall()
     db.close
+
 
 def get_authors():
     """
@@ -47,13 +49,15 @@ def get_authors():
     return c.fetchall()
     db.close
 
+
 def get_errors():
     """Return the days on which > 1 pct of all page requests led to errors"""
     db = psycopg2.connect(database=DBNAME)
     c = db.cursor()
     c.execute(
         """
-        SELECT errors.day, ((cast(errors.num AS DECIMAL) / cast(total.num AS DECIMAL)) * 100) AS pct
+        SELECT errors.day, ((cast(errors.num AS DECIMAL) /
+                             cast(total.num AS DECIMAL)) * 100) AS pct
             FROM
                 (SELECT date(time) AS day, count(*) AS num
                     FROM log
@@ -63,7 +67,8 @@ def get_errors():
                     FROM log
                     GROUP BY day) AS total
             WHERE errors.day = total.day
-            AND (((cast(errors.num AS DECIMAL) / cast(total.num AS DECIMAL)) * 100) > 1)
+            AND (((cast(errors.num AS DECIMAL) /
+                   cast(total.num AS DECIMAL)) * 100) > 1)
             ORDER BY pct DESC;
         """
     )
