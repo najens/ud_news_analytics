@@ -34,7 +34,7 @@ $ source venv/Scripts/activate
 
 Install module dependencies
 ```
-pip3 install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 ## Create DB
@@ -60,4 +60,4 @@ Run the python server
 $ ./news.py
 ```
 
-Go to localhost:5555 in your favorite browser to view query results
+Go to *localhost:5555* in your favorite browser to view query results
