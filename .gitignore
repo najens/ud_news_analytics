@@ -1,0 +1,6 @@
+# Paths #
+venv/
+__pycache__/
+
+# Databases #
+*.sql
